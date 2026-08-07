@@ -1,5 +1,5 @@
 {% load static %}<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +7,8 @@
     <link rel="stylesheet" href="{% static "global/css/style.css" %}">
 </head>
 <body>
-   
-   <main class="content">
-    
-    {% for minha_noticias in lista_de_noticias %}
-        <h1>{{minha_noticias.titulo}}</h1><br>
-        <a href="{{minha_noticias.url_noticia}}" target="_blank"><h1>{{minha_noticias.titulo}}</h1></a><br>
-        <a href="{{minha_noticias.url_noticia}}" target="_blank"> <img src="{{minha_noticias.url_imagen}} alt="{{minha_noticias.titulo}}" > </img></a><br>
-        <p>Data da publicação: {{minha_noticias.data_criacao}}</p><br>
-        {% endfor %}
-    </main> 
+
+    {% block conteudo %}{% endblock conteudo %}
+
 </body>
 </html>

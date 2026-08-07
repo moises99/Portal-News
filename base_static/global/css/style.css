@@ -1,5 +1,109 @@
-h2{
-font-size: 100px;
-color: red;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
+body{
+    background:#f1f0ec;
+    padding:40px;
+}
+a{
+text-decoration: none;
+}
+
+h2:hover{
+color:#ff6600;
+}
+
+.noticias{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.conteudo{
+    padding:22px;
+}
+
+.categoria{
+    display:inline-block;
+    color:#fff;
+    padding:6px 14px;
+    border-radius:50px;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.tecnologia{
+    background:#0066ff;
+}
+
+.esportes{
+    background:#18a558;
+}
+
+.politica{
+    background:#d62828;
+}
+
+.card h2{
+    font-size:25px;
+    margin-bottom:15px;
+    color:#222;
+    line-height:1.3;
+}
+.card h2:hover{
+    color:#ff6600;
+    transition:.3s;
+}
+.card p{
+    color:#666;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.rodape{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid #eee;
+    padding-top:18px;
+}
+
+.rodape span{
+    color:#888;
+    font-size:14px;
+}
+
+.rodape a{
+    text-decoration:none;
+    color:#0d6efd;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.rodape a:hover{
+    color:#ff6600;
 }
