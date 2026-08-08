@@ -11,8 +11,8 @@ import sqlite3
 data_hj = datetime.now()
 con = sqlite3.connect('../db.sqlite3')
 cursor = con.cursor()
-cursor.execute('DELETE FROM news_app_news')
-cursor.execute('DELETE FROM sqlite_sequence')
+# cursor.execute('DELETE FROM news_app_news')
+# cursor.execute('DELETE FROM sqlite_sequence')
 def colect_news():
     options=Options()
     options.add_argument("--headless=new")

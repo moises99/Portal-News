@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poral News</title>
+    <title>Portal News</title>
     <link rel="stylesheet" href="{% static "global/css/style.css" %}">
 </head>
 <body>
+    
+    {% include "global/_search.html" %}
+    
+    <div class="btn-container">
+        <a class="btn btn-border-reveal" href ="{% url "news_app:index" %}">Pagina Inicial</a>
+    </div>
+    
+    {% block conteudo %}
+    
 
-    {% block conteudo %}{% endblock conteudo %}
+    {% endblock conteudo %}
 
 </body>
 </html>
+
+
+
+

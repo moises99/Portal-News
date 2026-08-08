@@ -1,0 +1,12 @@
+<div class="search-container">
+  <form class="search-box" action="{% url "news_app:search" %}" method="get">
+    <input type="text" 
+      name="q" 
+      placeholder="Pesquisar..." 
+      value ="{{pesquisa}}"
+      >
+    <button type="submit" class="search-btn">
+      🔍
+    </button>
+  </form>
+</div>

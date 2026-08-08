@@ -1,9 +1,12 @@
 # SITE DE NOTICIAS EM DESENVOLVIMENTO
 
+
+###Crie seu ambiente virtual
+py -m venv venv  
 ### Instale os pacotes necessários
 pip install -r requirements.txt
 
-## Crie a base de dados 
+### Crie a base de dados 
 py manage.py makemigrations  
 py manage.py migrate  
 
