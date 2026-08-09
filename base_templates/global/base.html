@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal News</title>
-    <link rel="stylesheet" href="{% static "global/css/style.css" %}">
+    <title> {{title}}</title>
+    <link rel="stylesheet" href="{% static 'global/css/style.css' %}">
+    <script src="{% static 'global/js/script.js' %}"></script>
 </head>
 <body>
     
@@ -13,12 +14,13 @@
     <div class="btn-container">
         <a class="btn btn-border-reveal" href ="{% url "news_app:index" %}">Pagina Inicial</a>
     </div>
-    
+
+
     {% block conteudo %}
     
-
     {% endblock conteudo %}
 
+    {% include "global/paginacao.html" %}
 </body>
 </html>
 

@@ -1,0 +1,24 @@
+{% load static %}<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portal News - {{request.GET.q}}</title>
+        <link rel="stylesheet" href="{% static "global/css/style.css" %}">
+    </head>
+    <body>
+        
+        {% include "global/_search.html" %}
+        
+        <h1 class="nada_por_aqui">Nada encontrado, volte a página inicial ou realize uma nova pesquisa!</h1>
+        <div class="btn-container">
+            <a class="btn btn-border-reveal" href ="{% url "news_app:index" %}">Pagina Inicial</a>
+        </div>
+        
+        {% block conteudo %}
+    
+    {% endblock conteudo %}
+    
+    {% include "global/paginacao.html" %}
+</body>
+</html>

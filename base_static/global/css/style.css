@@ -1,3 +1,4 @@
+
 *{
     margin:0;
     padding:0;
@@ -202,6 +203,7 @@ color:#ff6600;
   
 }
 
+
 .btn-border-reveal::after {
   content: "";
   position: absolute;
@@ -220,6 +222,21 @@ color:#ff6600;
 
 .btn-border-reveal:hover {
   color: #fff;
-
   border: 2px solid #d62828;
+}
+
+
+.paginacao {
+  background-color: transparent;
+  color: #1c7ed6;
+  position: relative;
+  font-weight: bold;
+
+  
+}
+
+.nada_por_aqui{
+text-align: center;
+color:#1c7ed6;
+font-weight: bold;
 }

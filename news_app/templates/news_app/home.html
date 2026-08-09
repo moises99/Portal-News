@@ -5,18 +5,19 @@
     <div class="card">
         <a href="{{minha_noticias.url_noticia}}" target="_blank"> <img src="{{minha_noticias.url_imagen}} alt="{{minha_noticias.titulo}}" "></a>
         <div class="conteudo">
-               
-                {% comment %} <span class="categoria tecnologia">
-                    Tecnologia
-                </span> {% endcomment %}
-                <a href="{{minha_noticias.url_noticia}}" target="_blank"> <h2>{{minha_noticias.titulo}}</h2> </a>
-                {% comment %} <p> Especialistas acreditam que novas ferramentas de inteligência artificial aumentarão significativamente a produtividade.</p> {% endcomment %}
-                <div class="rodape">
-                    <span>{{minha_noticias.data_criacao}}</span>
-                    <a href="{{minha_noticias.url_noticia}}" target="_blank">Ler mais → </a>
-                </div>
+            
+            {% comment %} <span class="categoria tecnologia">
+                Tecnologia
+            </span> {% endcomment %}
+            <a href="{{minha_noticias.url_noticia}}" target="_blank"> <h2>{{minha_noticias.titulo}}</h2> </a>
+            {% comment %} <p> Especialistas acreditam que novas ferramentas de inteligência artificial aumentarão significativamente a produtividade.</p> {% endcomment %}
+            <div class="rodape">
+                <span>{{minha_noticias.data_criacao}}</span>
+                <a href="{{minha_noticias.url_noticia}}" target="_blank">Ler mais → </a>
             </div>
         </div>
+    </div>
     {% endfor %}
 </section>
+
 {% endblock conteudo %}
