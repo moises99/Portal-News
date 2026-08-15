@@ -4,7 +4,7 @@
         <span class="step-links">
             {% if lista_de_noticias.has_previous %}
                 <a  class="btn btn-border-reveal" href="?page=1&q={{ request.GET.q.strip }}">&laquo; Primeira Página</a>
-                <a  class="btn btn-border-reveal" href="?page={{ lista_de_noticias.previous_page_number }}&q={{ request.GET.q.strip }}">Voltar</a>
+                <a  class="btn btn-border-reveal" href="?page={{ lista_de_noticias.previous_page_number }}&q={{ request.GET.q.strip }}"><</a>
 
             {% endif %}
 
@@ -13,7 +13,7 @@
             </span>
 
             {% if lista_de_noticias.has_next %}
-                <a  class="btn btn-border-reveal" href="?page={{ lista_de_noticias.next_page_number }}&q={{ request.GET.q.strip }}">Avançar</a>
+                <a  class="btn btn-border-reveal" href="?page={{ lista_de_noticias.next_page_number }}&q={{ request.GET.q.strip }}">></a>
                 <a  class="btn btn-border-reveal" href="?page={{ lista_de_noticias.paginator.num_pages }}&q={{ request.GET.q.strip }}">Ultima Página &raquo;</a>
 
 

@@ -8,14 +8,11 @@
     <script src="{% static 'global/js/script.js' %}"></script>
 </head>
 <body>
-    
     {% include "global/_search.html" %}
-    
     <div class="btn-container">
         <a class="btn btn-border-reveal" href ="{% url "news_app:index" %}">Pagina Inicial</a>
     </div>
-
-
+    
     {% block conteudo %}
     
     {% endblock conteudo %}

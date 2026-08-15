@@ -8,6 +8,7 @@
 }
 
 body{
+    /* background:#383737e1; */
     background:#edecf1;
     padding:40px;
 }
@@ -30,6 +31,7 @@ color:#ff6600;
 }
 
 .card{
+    /* background-image:url(""); */
     background:#fff;
     border-radius:15px;
     overflow:hidden;
@@ -42,11 +44,24 @@ color:#ff6600;
     box-shadow:0 20px 40px rgba(0,0,0,.25);
 }
 
+
+/* .card img {
+    width: 128px;
+    height: 128px;
+    object-fit: cover;
+    display: block;
+    margin: 15px auto 0;
+    border-radius: 50%;
+}
+  */
+
 .card img{
     width:100%;
     height:220px;
     object-fit:cover;
-}
+} 
+
+
 
 .conteudo{
     padding:22px;
@@ -96,6 +111,7 @@ color:#ff6600;
     align-items:center;
     border-top:1px solid #eee;
     padding-top:18px;
+    
 }
 
 .rodape span{
@@ -112,127 +128,138 @@ color:#ff6600;
 
 .rodape a:hover{
     color:#ff6600;
+    
 }
 
 
+.data_at {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto; 
+  width: 100%;
+  color: #888;
+  font-size:14px;
+}
 
-  .search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 40px auto; 
-    width: 100%;
-  }
 
-  .search-box {
-    display: flex;
-    align-items: center;
-    background: #f1f3f5;
-    border-radius: 30px;
-    padding: 5px 10px;
-    width: 900px;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto; 
+  width: 100%;
+}
 
-  .search-box:focus-within {
-    border-color: #228be6;
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(34, 139, 230, 0.15);
-  }
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f3f5;
+  border-radius: 30px;
+  padding: 5px 10px;
+  width: 900px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
 
-  .search-box input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    padding: 8px 12px;
-    font-size: 14px;
-    outline: none;
-    color: #495057;
-  }
+.search-box:focus-within {
+  border-color: #228be6;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(34, 139, 230, 0.15);
+}
 
-  .search-btn {
-       background: #1c7ed6;
+.search-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  font-size: 14px;
+  outline: none;
+  color: #495057;
+}
 
-    border: none;
-    color: white;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
+.search-btn {
+      background: #1c7ed6;
 
-  .search-btn:hover {
-    background: #d62828;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
 
-  }
+.search-btn:hover {
+  background: #d62828;
+
+}
 
 
 
 .btn-container {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  margin: 40px auto;
-  
+display: flex;
+justify-content: center; 
+align-items: center;
+margin: 40px auto;
+
 }
 
 .btn {
-  padding: 10px 20px;
-  margin: auto 10px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  border-radius: 10px;
+padding: 10px 20px;
+margin: auto 10px;
+border: none;
+cursor: pointer;
+font-size: 16px;
+transition: all 0.3s ease;
+border-radius: 10px;
 }
 
 
 /* 3. Border Reveal */
 .btn-border-reveal {
-  background-color: transparent;
-  color: #1c7ed6;
-  border: 2px solid #1c7ed6;
-  position: relative;
-  font-weight: bold;
+background-color: transparent;
+color: #1c7ed6;
+border: 2px solid #1c7ed6;
+position: relative;
+font-weight: bold;
 
-  
+
 }
 
 
 .btn-border-reveal::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: #d62828;
-  transition: width 0.3s ease;
-  z-index: -1;
+content: "";
+position: absolute;
+width: 0;
+height: 100%;
+top: 0;
+left: 0;
+background-color: #d62828;
+transition: width 0.3s ease;
+z-index: -1;
 }
 
 .btn-border-reveal:hover::after {
-  width: 100%;
+width: 100%;
 }
 
 .btn-border-reveal:hover {
-  color: #fff;
-  border: 2px solid #d62828;
+color: #fff;
+border: 2px solid #d62828;
 }
 
 
 .paginacao {
-  background-color: transparent;
-  color: #1c7ed6;
-  position: relative;
-  font-weight: bold;
+background-color: transparent;
+color: #1c7ed6;
+position: relative;
+font-weight: bold;
 
-  
+
 }
 
 .nada_por_aqui{
