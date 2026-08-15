@@ -6,11 +6,6 @@ from datetime import datetime
 import sqlite3
 from rich.progress import track
 
-
-#ANTES DE EXECULTAR ESSE SCRIPT NECESSÁRIOS CRIAR A BASE DE DADOS E TABELAS USANDO O ARQUIVO DE MODELS
-
-# cursor.execute('DELETE FROM news_app_news')
-# cursor.execute('DELETE FROM sqlite_sequence')
 def colect_news(tempo):
     listp = []
     listt = []
