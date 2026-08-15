@@ -7,39 +7,74 @@ import sqlite3
 from rich.progress import track
 
 
-
 #ANTES DE EXECULTAR ESSE SCRIPT NECESSÁRIOS CRIAR A BASE DE DADOS E TABELAS USANDO O ARQUIVO DE MODELS
-data_hj = datetime.now()
-con = sqlite3.connect('../db.sqlite3')
-cursor = con.cursor()
+
 # cursor.execute('DELETE FROM news_app_news')
 # cursor.execute('DELETE FROM sqlite_sequence')
-def colect_news():
+def colect_news(tempo):
+    listp = []
+    listt = []
     options=Options()
     options.add_argument("--headless=new")
     driver = webdriver.Edge(options=options)
     driver.get('https://www.bing.com/news')
-    tempo = 60
-    for c in track(range(tempo),description="Coletando Notícias...",total=tempo):
+    tempo = tempo
+    for c in track(range(tempo),description="Aguardando página...",total=tempo):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);") #Rolagem automatica da Pagina
-        #print(f'Coletando as Noticias, Aguarde: {tempo-c}s', end="\r",flush=False)
         sleep(1)
-
     qtd_elementos = len(driver.find_elements(By.XPATH,"//div[@class='news-card newsitem cardcommon nosnip']"))
-    for c in track(range(qtd_elementos),description="Inserindo dados no base...",total=qtd_elementos):
+    for c in track(range(qtd_elementos),description="Coletando informações...",total=qtd_elementos):
         meus_elementos = driver.find_elements(By.XPATH,"//div[@class='news-card newsitem cardcommon nosnip']")[c] #ELEMENTO PAI
         meus_elementos2 = meus_elementos.find_element(By.TAG_NAME,"img")#ELEMENTO FILHO
         titulo = meus_elementos.get_attribute('title')
         url = meus_elementos.get_attribute('url')
         urlimg = meus_elementos2.get_attribute('src')
-        t = True
-        try:
-            cursor.execute(f'INSERT INTO news_app_news(titulo,url_noticia,url_imagen,data_criacao,show) VALUES ("{titulo}","{url}","{urlimg}","{data_hj.strftime("%Y-%m-%d %H:%M:%S")}",{t})')
-            print(f'TITULO : {titulo} [OK]')
-        except  Exception as e:
-            print('Dados nao Inseridos',e)
-    print(qtd_elementos)
+        listt.append(titulo)
+        listt.append(url)
+        listt.append(urlimg)
+        listacopia = listt[:]
+        listp.append(listacopia)
+        listt.clear()
+    driver.quit()
+    return listp
 
-    con.commit()
+def consultssql():
+    con = sqlite3.connect('../db.sqlite3',timeout=10)
+    cursor = con.cursor()
+    lista_sql = []
+    cursor.execute('SELECT * FROM news_app_news')
+    for row in cursor.fetchall():
+        ts = row[1]
+        lista_sql.append(ts)
     con.close()
-colect_news()
+    return lista_sql
+
+
+def inserindo_dados():
+    cont = 0
+    listp = colect_news(tempo = 60)
+    lista_sql = consultssql()
+    for listp in track(listp,description='Inserindo dados na base'):
+        data_hj = datetime.now()
+        t = True
+        if listp[0] not in lista_sql:
+            try:
+                with sqlite3.connect('../db.sqlite3',timeout=10) as con:
+                    cursor = con.cursor()
+                    cursor.execute(f'INSERT INTO news_app_news(titulo,url_noticia,url_imagen,data_criacao,show) VALUES ("{listp[0]}","{listp[1]}","{listp[2]}","{data_hj.strftime("%Y-%m-%d %H:%M:%S")}",{t})')
+                    #print(f'TITULO : {listp[0]} [OK]')
+                cont+=1
+            except  Exception as e:
+                print('Dados nao Inseridos',e)
+    print(f'Total de {cont} novas notícas.')
+
+
+
+
+while True:
+    tempo = 600 #10 minutos 
+    inserindo_dados()
+    for t in range(tempo,0,-1):
+        print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
+        sleep(1)
+    
