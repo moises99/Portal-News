@@ -35,7 +35,7 @@ def search(request):
     if len(noticia) == 0:
         return render(request,'global/nada_encontrado.html',)
 
-    paginator = Paginator(noticia, 10) 
+    paginator = Paginator(noticia, 16) 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request,'news_app/home.html',

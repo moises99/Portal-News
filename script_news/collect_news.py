@@ -6,6 +6,8 @@ from datetime import datetime
 import sqlite3
 from rich.progress import track
 
+
+
 def colect_news(tempo):
     listp = []
     listt = []
@@ -24,9 +26,9 @@ def colect_news(tempo):
         titulo = meus_elementos.get_attribute('title')
         url = meus_elementos.get_attribute('url')
         urlimg = meus_elementos2.get_attribute('src')
-        listt.append(titulo)
+        listt.append(titulo.replace('"','').replace("'",""))
         listt.append(url)
-        listt.append(urlimg)
+        listt.append(urlimg.replace('128&h','500&h').replace('128&c','500&c').replace('qlt=90','qlt=100'))
         listacopia = listt[:]
         listp.append(listacopia)
         listt.clear()
@@ -56,14 +58,12 @@ def inserindo_dados():
             try:
                 with sqlite3.connect('../db.sqlite3',timeout=10) as con:
                     cursor = con.cursor()
-                    cursor.execute(f'INSERT INTO news_app_news(titulo,url_noticia,url_imagen,data_criacao,show) VALUES ("{listp[0]}","{listp[1]}","{listp[2]}","{data_hj.strftime("%Y-%m-%d %H:%M:%S")}",{t})')
+                    cursor.execute(str(f'INSERT INTO news_app_news(titulo,url_noticia,url_imagen,data_criacao,show) VALUES ("{listp[0]}","{listp[1]}","{listp[2]}","{data_hj.strftime("%Y-%m-%d %H:%M:%S")}",{t})'))
                     #print(f'TITULO : {listp[0]} [OK]')
                 cont+=1
             except  Exception as e:
                 print('Dados nao Inseridos',e)
     print(f'Total de {cont} novas notícas.')
-
-
 
 
 while True:
