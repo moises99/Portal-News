@@ -58,7 +58,7 @@ def inserindo_dados():
             try:
                 with sqlite3.connect('../db.sqlite3',timeout=10) as con:
                     cursor = con.cursor()
-                    cursor.execute(str(f'INSERT INTO news_app_news(titulo,url_noticia,url_imagen,data_criacao,show) VALUES ("{listp[0]}","{listp[1]}","{listp[2]}","{data_hj.strftime("%Y-%m-%d %H:%M:%S")}",{t})'))
+                    cursor.execute(str(f'INSERT INTO news_app_news(titulo,url_noticia,url_imagem,data_criacao,show) VALUES ("{listp[0]}","{listp[1]}","{listp[2]}","{data_hj.strftime("%Y-%m-%d %H:%M:%S")}",{t})'))
                     #print(f'TITULO : {listp[0]} [OK]')
                 cont+=1
             except  Exception as e:

@@ -11,7 +11,7 @@ class News(models.Model):
 
     titulo = models.CharField(blank=True,max_length=255)
     url_noticia = models.CharField(blank=True,max_length=255)
-    url_imagen = models.CharField(blank=True,max_length=255)
+    url_imagem = models.CharField(blank=True,max_length=255)
     data_criacao = models.DateTimeField(default=timezone.now)
     show = models.BooleanField(default=True)
 

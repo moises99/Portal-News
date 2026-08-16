@@ -4,7 +4,7 @@ from news_app import models
 
 @admin.register(models.News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('id','titulo','url_noticia','url_imagen','show',)
+    list_display = ('id','titulo','url_noticia','url_imagem','show',)
     list_filter = ('titulo',)
     list_per_page = 25
     ordering = ('-id',)
