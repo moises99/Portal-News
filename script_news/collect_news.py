@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.options import Options
+from selenium.webdriver.firefox.options import Options
 from time import sleep
 from datetime import datetime
 import sqlite3
@@ -14,7 +14,7 @@ def colect_news(tempo):
     listt = []
     options=Options()
     options.add_argument("--headless=new")
-    driver = webdriver.Edge(options=options)
+    driver = webdriver.Firefox()
     driver.get('https://www.bing.com/news')
     tempo = tempo
     for c in track(range(tempo),description="Aguardando página...",total=tempo):
