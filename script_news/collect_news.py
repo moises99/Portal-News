@@ -12,6 +12,7 @@ def colect_news(tempo):
     listp = []
     listt = []
     options=Options()
+    options.binary_location = "/opt/firefox/firefox"
     options.add_argument("--headless=new")
     driver = webdriver.Firefox(options=options)
     driver.get('https://www.bing.com/news')
