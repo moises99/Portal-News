@@ -1,7 +1,7 @@
 import psycopg
 from datetime import datetime
 # conn = psycopg.connect(
-#     host="172.23.24.35",
+#     host="172.20.222.124",
 #     port=5432,
 #     dbname="seu_banco",
 #     user="postgres",
@@ -15,7 +15,7 @@ from datetime import datetime
 # print(cursor.fetchone())
 
 # conn.close()
-with psycopg.connect(host="172.23.24.35",port=5432,dbname="porta_news",user="moises",password="123456") as con:
+with psycopg.connect(host="172.20.222.124",port=5432,dbname="porta_news",user="moises",password="123456") as con:
     cursor = con.cursor()
     data_hj = datetime.now()
     t = True

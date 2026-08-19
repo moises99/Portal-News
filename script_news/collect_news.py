@@ -37,7 +37,7 @@ def colect_news(tempo):
     return listp
 
 def consultssql():
-    with psycopg.connect(host="172.23.24.35",port=5432,dbname="porta_news",user="moises",password="123456") as con:
+    with psycopg.connect(host="172.20.222.124",port=5432,dbname="porta_news",user="moises",password="123456") as con:
         cursor = con.cursor()
         lista_sql = []
         cursor.execute('SELECT * FROM news_app_news')
@@ -57,7 +57,7 @@ def inserindo_dados():
         if listp[0] not in lista_sql:
 
             try:
-                with psycopg.connect(host="172.23.24.35",port=5432,dbname="porta_news",user="moises",password="123456") as con:
+                with psycopg.connect(host="172.20.222.124",port=5432,dbname="porta_news",user="moises",password="123456") as con:
                     cursor = con.cursor()
                     cursor.execute(f"INSERT INTO news_app_news (titulo,url_noticia,url_imagem,data_criacao,show) VALUES ('{listp[0]}','{listp[1]}','{listp[2]}','{data_hj.strftime('%Y-%m-%d %H:%M:%S')}',{t})")
                 cont+=1
