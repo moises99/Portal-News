@@ -1,257 +1,658 @@
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-    
-}
-
-body{
-    /* background:#383737e1; */
-    background:#edecf1;
-    padding:40px;
-}
+/* ====================================================================================================
+   ESTE CSS FOI GERADOR POR IA APENAS PARA DAR VIDA AO SITE, NESTE MOMENTO CSS NÃO FAZ PARTE DOS MEUS ESTUDOS
+======================================================================================================= */
 
 
-a{
-text-decoration: none;
-}
 
-h2:hover{
-color:#ff6600;
-}
+/* =========================================================
+   RESET
+========================================================= */
 
-.noticias{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
-    max-width: 1680px; /* 4 x 330px + espaçamentos */
-    margin: 0 auto; 
-    gap:30px;
-}
-
-.card{
-    /* background-image:url(""); */
-    background:#fff;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 8px 25px rgba(0,0,0,.15);
-    transition:.35s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 20px 40px rgba(0,0,0,.25);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 
-/* .card img {
-    width: 128px;
-    height: 128px;
-    object-fit: cover;
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+:root {
+    --azul: #2563eb;
+    --azul-claro: #38bdf8;
+
+    --roxo: #7c3aed;
+    --rosa: #ec4899;
+
+    --laranja: #f97316;
+    --verde: #10b981;
+    --vermelho: #ef4444;
+
+    --fundo: #f4f7ff;
+
+    --texto: #1e293b;
+    --texto-claro: #64748b;
+
+    --branco: #ffffff;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+    min-height: 100vh;
+
+    padding: 40px;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(56, 189, 248, 0.16),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(124, 58, 237, 0.14),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(236, 72, 153, 0.10),
+            transparent 30%
+        ),
+        var(--fundo);
+
+    color: var(--texto);
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   GRID DE NOTÍCIAS
+========================================================= */
+
+.noticias {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(330px, 1fr));
+
+    max-width: 1680px;
+
+    margin: 0 auto;
+
+    gap: 30px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+    position: relative;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    box-shadow:
+        0 10px 30px rgba(37, 99, 235, 0.10);
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+
+    animation: aparecer 0.7s ease both;
+}
+
+
+/* brilho */
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 60%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left 0.7s ease;
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+
+.card:hover::before {
+    left: 150%;
+}
+
+
+.card:hover {
+    transform: translateY(-10px);
+
+    box-shadow:
+        0 20px 45px rgba(37, 99, 235, 0.18),
+        0 10px 25px rgba(124, 58, 237, 0.12);
+
+    border-color: rgba(56, 189, 248, 0.45);
+}
+
+
+/* =========================================================
+   IMAGEM
+========================================================= */
+
+.card img {
     display: block;
-    margin: 15px auto 0;
-    border-radius: 50%;
-}
-  */
 
-.card img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-} 
+    width: 100%;
+    height: 220px;
 
+    object-fit: cover;
 
-
-.conteudo{
-    padding:22px;
+    transition:
+        transform 0.6s ease,
+        filter 0.6s ease;
 }
 
-.categoria{
-    display:inline-block;
-    color:#fff;
-    padding:6px 14px;
-    border-radius:50px;
-    font-size:13px;
-    font-weight:bold;
-    margin-bottom:15px;
+
+.card:hover img {
+    transform: scale(1.06);
+
+    filter:
+        brightness(1.05)
+        saturate(1.12);
 }
 
-.tecnologia{
-    background:#0066ff;
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.conteudo {
+    padding: 24px;
 }
 
-.esportes{
-    background:#18a558;
+
+/* =========================================================
+   CATEGORIAS
+========================================================= */
+
+.categoria {
+    display: inline-block;
+
+    color: #fff;
+
+    padding: 7px 15px;
+
+    border-radius: 50px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 16px;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
-.politica{
-    background:#d62828;
+
+.categoria:hover {
+    transform: translateY(-3px) scale(1.04);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.20);
 }
 
-.card h2{
-    font-size:25px;
-    margin-bottom:15px;
-    color:#222;
-    line-height:1.3;
-}
-.card h2:hover{
-    color:#ff6600;
-    transition:.3s;
-}
-.card p{
-    color:#666;
-    line-height:1.7;
-    margin-bottom:20px;
+
+.tecnologia {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #38bdf8
+        );
 }
 
-.rodape{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-top:1px solid #eee;
-    padding-top:18px;
-    
+
+.esportes {
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #34d399
+        );
 }
 
-.rodape span{
-    color:#888;
-    font-size:14px;
+
+.politica {
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #f97316
+        );
 }
 
-.rodape a{
-    text-decoration:none;
-    color:#0d6efd;
-    font-weight:bold;
-    transition:.3s;
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.card h2 {
+    font-size: 25px;
+
+    margin-bottom: 15px;
+
+    color: var(--texto);
+
+    line-height: 1.3;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
 }
 
-.rodape a:hover{
-    color:#ff6600;
-    
+
+.card h2:hover {
+    color: var(--azul);
+
+    transform: translateX(4px);
 }
 
+
+/* =========================================================
+   TEXTO
+========================================================= */
+
+.card p {
+    color: var(--texto-claro);
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   RODAPÉ DO CARD
+========================================================= */
+
+.rodape {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-top:
+        1px solid rgba(100, 116, 139, 0.15);
+
+    padding-top: 18px;
+}
+
+
+.rodape span {
+    color: #94a3b8;
+
+    font-size: 14px;
+}
+
+
+.rodape a {
+    color: var(--azul);
+
+    font-weight: bold;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.rodape a::after {
+    content: " →";
+
+    display: inline-block;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.rodape a:hover {
+    color: var(--roxo);
+
+    transform: translateX(3px);
+}
+
+
+.rodape a:hover::after {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   DATA
+========================================================= */
 
 .data_at {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px auto; 
-  width: 100%;
-  color: #888;
-  font-size:14px;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    margin: 10px auto;
+
+    color: #94a3b8;
+
+    font-size: 14px;
 }
 
+
+/* =========================================================
+   PESQUISA
+========================================================= */
 
 .search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 40px auto; 
-  width: 100%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    margin: 40px auto;
 }
+
 
 .search-box {
-  display: flex;
-  align-items: center;
-  background: #f1f3f5;
-  border-radius: 30px;
-  padding: 5px 10px;
-  width: 900px;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
+    display: flex;
+
+    align-items: center;
+
+    width: min(900px, 100%);
+
+    padding: 6px 10px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    border: 2px solid transparent;
+
+    border-radius: 50px;
+
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.08);
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
 }
+
+
+.search-box:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(37, 99, 235, 0.14);
+}
+
 
 .search-box:focus-within {
-  border-color: #228be6;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(34, 139, 230, 0.15);
+    border-color: var(--azul-claro);
+
+    background: #fff;
+
+    box-shadow:
+        0 0 0 5px rgba(56, 189, 248, 0.12),
+        0 12px 30px rgba(37, 99, 235, 0.15);
 }
+
 
 .search-box input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  padding: 8px 12px;
-  font-size: 14px;
-  outline: none;
-  color: #495057;
+    flex: 1;
+
+    min-width: 0;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    padding: 12px 15px;
+
+    font-size: 15px;
+
+    color: #334155;
 }
+
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* =========================================================
+   BOTÃO PESQUISAR
+========================================================= */
 
 .search-btn {
-      background: #1c7ed6;
+    flex-shrink: 0;
 
-  border: none;
-  color: white;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul),
+            var(--roxo)
+        );
+
+    color: #fff;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
+
 
 .search-btn:hover {
-  background: #d62828;
+    transform:
+        scale(1.1)
+        rotate(12deg);
 
+    box-shadow:
+        0 8px 20px rgba(124, 58, 237, 0.35);
 }
 
 
+.search-btn:active {
+    transform: scale(0.95);
+}
+
+
+/* =========================================================
+   CONTAINER DOS BOTÕES
+========================================================= */
 
 .btn-container {
-display: flex;
-justify-content: center; 
-align-items: center;
-margin: 40px auto;
+    display: flex;
 
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin: 40px auto;
 }
+
+
+/* =========================================================
+   BOTÃO BASE
+========================================================= */
 
 .btn {
-padding: 10px 20px;
-margin: auto 10px;
-border: none;
-cursor: pointer;
-font-size: 16px;
-transition: all 0.3s ease;
-border-radius: 10px;
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 10px 20px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
 }
 
 
-/* 3. Border Reveal */
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+
+.btn:active {
+    transform: translateY(0) scale(0.97);
+}
+
+
+/* =========================================================
+   BOTÃO BORDER REVEAL
+========================================================= */
+
 .btn-border-reveal {
-background-color: transparent;
-color: #1c7ed6;
-border: 2px solid #1c7ed6;
-position: relative;
-font-weight: bold;
+    position: relative;
 
+    isolation: isolate;
 
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    color: var(--azul);
+
+    border: 2px solid var(--azul);
+
+    font-weight: bold;
 }
 
 
 .btn-border-reveal::after {
-content: "";
-position: absolute;
-width: 0;
-height: 100%;
-top: 0;
-left: 0;
-background-color: #d62828;
-transition: width 0.3s ease;
-z-index: -1;
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--azul),
+            var(--roxo)
+        );
+
+    transition: width 0.4s ease;
+
+    z-index: -1;
 }
+
 
 .btn-border-reveal:hover::after {
-width: 100%;
+    width: 100%;
 }
+
 
 .btn-border-reveal:hover {
-color: #fff;
-border: 2px solid #d62828;
+    color: #fff;
+
+    border-color: var(--roxo);
+
+    box-shadow:
+        0 8px 25px rgba(124, 58, 237, 0.25);
 }
 
+
+/* =========================================================
+   PAGINAÇÃO
+========================================================= */
+
+/*
+   IMPORTANTE:
+   A paginação foi separada do .btn para evitar
+   conflitos de tamanho, margem e posicionamento.
+*/
 
 .paginacao {
 background-color: transparent;
@@ -262,8 +663,342 @@ font-weight: bold;
 
 }
 
-.nada_por_aqui{
-text-align: center;
-color:#1c7ed6;
-font-weight: bold;
+/* Links / números da paginação */
+
+.paginacao a,
+.paginacao button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 42px;
+    height: 42px;
+
+    padding: 0 13px;
+
+    border: 1px solid rgba(37, 99, 235, 0.20);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 255, 255, 0.85);
+
+    color: var(--azul);
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.06);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* hover */
+
+.paginacao a:hover,
+.paginacao button:hover {
+    transform: translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul),
+            var(--roxo)
+        );
+
+    color: #fff;
+
+    border-color: transparent;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+
+/* Página atual */
+
+.paginacao .ativo,
+.paginacao .active,
+.paginacao a.active {
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul),
+            var(--roxo)
+        );
+
+    color: #fff;
+
+    border-color: transparent;
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.25);
+}
+
+
+/* Desabilitado */
+
+.paginacao .disabled,
+.paginacao a.disabled,
+.paginacao button:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    pointer-events: none;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   CASO SUA PAGINAÇÃO USE .btn.paginacao
+========================================================= */
+
+.btn.paginacao {
+    min-width: 42px;
+
+    min-height: 42px;
+
+    margin: 0;
+
+    padding: 0 13px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 255, 255, 0.85);
+
+    color: var(--azul);
+
+    border: 1px solid rgba(37, 99, 235, 0.20);
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.06);
+}
+
+
+.btn.paginacao:hover {
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul),
+            var(--roxo)
+        );
+
+    color: #fff;
+
+    border-color: transparent;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================================================
+   NADA POR AQUI
+========================================================= */
+
+.nada_por_aqui {
+    text-align: center;
+
+    margin: 40px 0;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--azul),
+            var(--roxo),
+            var(--rosa),
+            var(--azul)
+        );
+
+    background-size: 300% auto;
+
+    color: transparent;
+
+    background-clip: text;
+
+    -webkit-background-clip: text;
+
+    animation:
+        gradiente 5s linear infinite;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes gradiente {
+
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 300% center;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 20px;
+    }
+
+    .noticias {
+        grid-template-columns:
+            repeat(auto-fit, minmax(260px, 1fr));
+
+        gap: 20px;
+    }
+
+    .card img {
+        height: 200px;
+    }
+
+    .card h2 {
+        font-size: 21px;
+    }
+
+    .conteudo {
+        padding: 20px;
+    }
+
+    .search-container {
+        margin: 25px auto;
+    }
+
+    .btn-container {
+        margin: 25px auto;
+    }
+
+    .paginacao {
+        margin-top: 30px;
+    }
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .noticias {
+        grid-template-columns: 1fr;
+    }
+
+    .card img {
+        height: 190px;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+    .rodape {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+    .btn-container {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    /* Paginação no celular */
+
+    .paginacao {
+        gap: 6px;
+
+        padding: 8px 0;
+    }
+
+    .paginacao a,
+    .paginacao button,
+    .btn.paginacao {
+        min-width: 38px;
+
+        height: 38px;
+
+        padding: 0 10px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+        scroll-behavior: auto !important;
+    }
 }

@@ -13,7 +13,7 @@ def index(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    return render(request,'news_app/home.html',
+    return render(request,'news_app/index.html',
                   {"lista_de_noticias": page_obj,
                     "title": "Portal News - Home",
                     "data_at" : data_at
@@ -38,7 +38,7 @@ def search(request):
     paginator = Paginator(noticia, 16) 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request,'news_app/home.html',
+    return render(request,'news_app/index.html',
                   {"lista_de_noticias": page_obj,
                    "pesquisa": texto_pesquisa,
                    "title": f"Portal News - {texto_pesquisa}",

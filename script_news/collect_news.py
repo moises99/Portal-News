@@ -5,6 +5,7 @@ from time import sleep
 from datetime import datetime
 import sqlite3
 from rich.progress import track
+from remove_low_img_resolution import oculta_urls
 
 
 
@@ -55,14 +56,15 @@ def inserindo_dados():
         data_hj = datetime.now()
         t = True
         if listp[0] not in lista_sql:
+
             try:
                 with sqlite3.connect('../db.sqlite3',timeout=10) as con:
                     cursor = con.cursor()
                     cursor.execute(str(f'INSERT INTO news_app_news(titulo,url_noticia,url_imagem,data_criacao,show) VALUES ("{listp[0]}","{listp[1]}","{listp[2]}","{data_hj.strftime("%Y-%m-%d %H:%M:%S")}",{t})'))
-                    #print(f'TITULO : {listp[0]} [OK]')
                 cont+=1
             except  Exception as e:
                 print('Dados nao Inseridos',e)
+    oculta_urls()
     print(f'Total de {cont} novas notícas.')
 
 
