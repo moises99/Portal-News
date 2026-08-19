@@ -65,12 +65,12 @@ def inserindo_dados():
     oculta_urls()
     print(f'Total de {cont} novas notícas.')
 
-inserindo_dados()
-# while True:
-#     tempo = 600 #10 minutos 
-#     inserindo_dados()
-#     for t in range(tempo,0,-1):
-#         print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
-#         sleep(1)
+
+while True:
+    tempo = 600 #10 minutos 
+    inserindo_dados()
+    for t in range(tempo,0,-1):
+        print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
+        sleep(1)
     
 
