@@ -48,7 +48,7 @@ def consultssql():
 
 def inserindo_dados():
     cont = 0
-    listp = colect_news(tempo = 15)
+    listp = colect_news(tempo = 60)
     lista_sql = consultssql()
     for listp in track(listp,description='Inserindo dados na base'):
         data_hj = datetime.now()
