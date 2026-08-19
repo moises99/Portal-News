@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from time import sleep
 from datetime import datetime
-import sqlite3
 from rich.progress import track
 from remove_low_img_resolution import oculta_urls
 import psycopg
@@ -49,7 +48,7 @@ def consultssql():
 
 def inserindo_dados():
     cont = 0
-    listp = colect_news(tempo = 60)
+    listp = colect_news(tempo = 15)
     lista_sql = consultssql()
     for listp in track(listp,description='Inserindo dados na base'):
         data_hj = datetime.now()
@@ -67,11 +66,11 @@ def inserindo_dados():
     print(f'Total de {cont} novas notícas.')
 
 
-while True:
-    tempo = 600 #10 minutos 
-    inserindo_dados()
-    for t in range(tempo,0,-1):
-        print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
-        sleep(1)
+# while True:
+#     tempo = 600 #10 minutos 
+#     inserindo_dados()
+#     for t in range(tempo,0,-1):
+#         print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
+#         sleep(1)
     
 
