@@ -6,7 +6,7 @@ from datetime import datetime
 import sqlite3
 from rich.progress import track
 from remove_low_img_resolution import oculta_urls
-
+import psycopg
 
 
 def colect_news(tempo):
@@ -14,7 +14,7 @@ def colect_news(tempo):
     listt = []
     options=Options()
     options.add_argument("--headless=new")
-    driver = webdriver.Firefox()
+    driver = webdriver.Firefox(options=options)
     driver.get('https://www.bing.com/news')
     tempo = tempo
     for c in track(range(tempo),description="Aguardando página...",total=tempo):
@@ -37,14 +37,13 @@ def colect_news(tempo):
     return listp
 
 def consultssql():
-    con = sqlite3.connect('../db.sqlite3',timeout=10)
-    cursor = con.cursor()
-    lista_sql = []
-    cursor.execute('SELECT * FROM news_app_news')
-    for row in cursor.fetchall():
-        ts = row[1]
-        lista_sql.append(ts)
-    con.close()
+    with psycopg.connect(host="172.23.24.35",port=5432,dbname="porta_news",user="moises",password="123456") as con:
+        cursor = con.cursor()
+        lista_sql = []
+        cursor.execute('SELECT * FROM news_app_news')
+        for row in cursor.fetchall():
+            ts = row[1]
+            lista_sql.append(ts)
     return lista_sql
 
 
@@ -58,9 +57,9 @@ def inserindo_dados():
         if listp[0] not in lista_sql:
 
             try:
-                with sqlite3.connect('../db.sqlite3',timeout=10) as con:
+                with psycopg.connect(host="172.23.24.35",port=5432,dbname="porta_news",user="moises",password="123456") as con:
                     cursor = con.cursor()
-                    cursor.execute(str(f'INSERT INTO news_app_news(titulo,url_noticia,url_imagem,data_criacao,show) VALUES ("{listp[0]}","{listp[1]}","{listp[2]}","{data_hj.strftime("%Y-%m-%d %H:%M:%S")}",{t})'))
+                    cursor.execute(f"INSERT INTO news_app_news (titulo,url_noticia,url_imagem,data_criacao,show) VALUES ('{listp[0]}','{listp[1]}','{listp[2]}','{data_hj.strftime('%Y-%m-%d %H:%M:%S')}',{t})")
                 cont+=1
             except  Exception as e:
                 print('Dados nao Inseridos',e)
@@ -75,3 +74,4 @@ while True:
         print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
         sleep(1)
     
+
