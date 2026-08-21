@@ -74,7 +74,7 @@ Esses comandos irão criar e atualizar as tabelas necessárias no banco de dados
 Entre na pasta responsável pela coleta das notícias:
 
 ```bash
-cd script_coleta_news
+cd script_news
 ```
 
 Execute o script:
@@ -88,6 +88,7 @@ Após a execução, as notícias coletadas serão inseridas no banco de dados.
 ## ▶️ Executando o projeto
 
 ### 6. Inicie o servidor Django
+Abra um no terminal.
 
 Volte para a raiz do projeto:
 
