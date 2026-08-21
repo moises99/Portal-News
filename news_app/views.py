@@ -6,7 +6,9 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
-    data_at = News.objects.filter(show=True).order_by('-id').values_list('data_criacao').first()[0].strftime("%Hh:%Mm do dia %d/%m/%Y ")
+    data_at =News.objects.filter(show=True).order_by('-id').values_list('data_criacao')
+    if data_at:
+        data_at = data_at.first()[0].strftime("%Hh:%Mm do dia %d/%m/%Y ")
     noticia = News.objects.filter(show=True).order_by('-id')#.order_by('?')
     #data_at = noticia.values_list('data_criacao').first()[0].strftime("%Hh:%Mm do dia %d/%m/%Y")
     paginator = Paginator(noticia, 16)  
@@ -42,6 +44,8 @@ def search(request):
                   {"lista_de_noticias": page_obj,
                    "pesquisa": texto_pesquisa,
                    "title": f"Portal News - {texto_pesquisa}",
-                    "data_at" : data_at
+                    "data_at" : data_at,
+                    
+
                    }
                   )
