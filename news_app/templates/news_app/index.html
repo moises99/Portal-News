@@ -1,32 +1,29 @@
 {% extends "global/base.html" %}
-
-{% comment %} <html>
-    <div class="dt_ultimaatt">
-    <span><p>Ultima atualização às {{data_at}}</p></span>
-    </div>
-</html> {% endcomment %}
 {% block conteudo %}
+{% if lista_de_noticias %}
 <div class="data_at">
 <span>Ultima atualização às {{data_at}}.</span>
  </div>
 <section class="noticias">
-    {% for minha_noticias in lista_de_noticias %}
-    <div class="card">
-        <a href="{{minha_noticias.url_noticia}}" target="_blank"> <img src= "{{minha_noticias.url_imagem}} alt="{{minha_noticias.titulo}}" "></a>
-        <div class="conteudo">
-            {% comment %} <span class="categoria tecnologia">
-                Tecnologia
-            </span> {% endcomment %}
-            <a href="{{minha_noticias.url_noticia}}" target="_blank"> <h2>{{minha_noticias.titulo}}.</h2> </a>
-            {% comment %} <p> Especialistas acreditam que novas ferramentas de inteligência artificial aumentarão significativamente a produtividade.</p> {% endcomment %}
-            <div class="rodape">
-                <span>{{minha_noticias.data_criacao}}</span>
-                <a href="{{minha_noticias.url_noticia}}" target="_blank">Ler mais →</a>
-                
+        {% for minha_noticias in lista_de_noticias %}
+        <div class="card">
+            <a href="{{minha_noticias.url_noticia}}" target="_blank"> <img src= "{{minha_noticias.url_imagem}} alt="{{minha_noticias.titulo}}" "></a>
+            <div class="conteudo">
+                {% comment %} <span class="categoria tecnologia">
+                    Tecnologia
+                </span> {% endcomment %}
+                <a href="{{minha_noticias.url_noticia}}" target="_blank"> <h2>{{minha_noticias.titulo}}.</h2> </a>
+                {% comment %} <p> Especialistas acreditam que novas ferramentas de inteligência artificial aumentarão significativamente a produtividade.</p> {% endcomment %}
+                <div class="rodape">
+                    <span>{{minha_noticias.data_criacao}}</span>
+                    <a href="{{minha_noticias.url_noticia}}" target="_blank">Ler mais →</a>
+                </div>
+
             </div>
-            
         </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
+        {% else %}
+        {% include "global/bem-vindo.html" %}
+{% endif %}  
 </section>
 {% endblock conteudo %}

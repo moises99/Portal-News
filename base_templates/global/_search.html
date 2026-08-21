@@ -1,4 +1,4 @@
-
+{% comment %} {% if data_at %} {% endcomment %}
 <div class="search-container">
   <form class="search-box" action="{% url "news_app:search" %}" method="get">
     <input type="text" 
@@ -11,3 +11,4 @@
     </button>
   </form>
 </div>
+{% comment %} {% endif %} {% endcomment %}

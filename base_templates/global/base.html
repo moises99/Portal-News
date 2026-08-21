@@ -1,4 +1,5 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -8,11 +9,12 @@
     <script src="{% static 'global/js/script.js' %}"></script>
 </head>
 <body>
+    {% if data_at %}
     {% include "global/_search.html" %}
     <div class="btn-container">
         <a class="btn btn-border-reveal" href ="{% url "news_app:index" %}">Pagina Inicial</a>
     </div>
-    
+    {% endif %}
     {% block conteudo %}
     
     {% endblock conteudo %}
@@ -20,7 +22,6 @@
     {% include "global/paginacao.html" %}
 </body>
 </html>
-
 
 
 
