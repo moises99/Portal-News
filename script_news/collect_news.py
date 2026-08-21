@@ -1,20 +1,19 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.edge.options import Options
 from time import sleep
 from datetime import datetime
 from rich.progress import track
 from remove_low_img_resolution import oculta_urls
-import psycopg
+import sqlite3
 
 
 def colect_news(tempo):
     listp = []
     listt = []
     options=Options()
-    options.binary_location = "/opt/firefox/firefox"
     options.add_argument("--headless")
-    driver = webdriver.Firefox(options=options)
+    driver = webdriver.Edge(options=options)
     driver.get('https://www.bing.com/news')
     tempo = tempo
     for c in track(range(tempo),description="Aguardando página...",total=tempo):
@@ -37,7 +36,7 @@ def colect_news(tempo):
     return listp
 
 def consultssql():
-    with psycopg.connect(host="172.20.222.124",port=5432,dbname="porta_news",user="moises",password="123456") as con:
+    with sqlite3.connect('../db.sqlite3') as con:
         cursor = con.cursor()
         lista_sql = []
         cursor.execute('SELECT * FROM news_app_news')
@@ -57,7 +56,7 @@ def inserindo_dados():
         if listp[0] not in lista_sql:
 
             try:
-                with psycopg.connect(host="172.20.222.124",port=5432,dbname="porta_news",user="moises",password="123456") as con:
+                with sqlite3.connect('../db.sqlite3') as con:
                     cursor = con.cursor()
                     cursor.execute(f"INSERT INTO news_app_news (titulo,url_noticia,url_imagem,data_criacao,show) VALUES ('{listp[0]}','{listp[1]}','{listp[2]}','{data_hj.strftime('%Y-%m-%d %H:%M:%S')}',{t})")
                 cont+=1
