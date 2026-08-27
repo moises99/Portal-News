@@ -4,8 +4,13 @@ from selenium.webdriver.edge.options import Options
 from time import sleep
 from datetime import datetime
 from rich.progress import track
-from remove_low_img_resolution import oculta_urls
 import sqlite3
+import sqlite3
+import os
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
 
 
 def colect_news(tempo):
@@ -36,7 +41,7 @@ def colect_news(tempo):
     return listp
 
 def consultssql():
-    with sqlite3.connect('../db.sqlite3') as con:
+    with sqlite3.connect(DB_PATH) as con:
         cursor = con.cursor()
         lista_sql = []
         cursor.execute('SELECT * FROM news_app_news')
@@ -45,10 +50,14 @@ def consultssql():
             lista_sql.append(ts)
     return lista_sql
 
+def oculta_urls():
+    with sqlite3.connect(DB_PATH) as con:
+        cursor = con.cursor()
+        cursor.execute("UPDATE news_app_news SET show = False WHERE url_imagem LIKE '%16%'")
 
 def inserindo_dados():
     cont = 0
-    listp = colect_news(tempo = 60)
+    listp = colect_news(tempo = 2)
     lista_sql = consultssql()
     for listp in track(listp,description='Inserindo dados na base'):
         data_hj = datetime.now()
@@ -56,21 +65,21 @@ def inserindo_dados():
         if listp[0] not in lista_sql:
 
             try:
-                with sqlite3.connect('../db.sqlite3') as con:
+                with sqlite3.connect(DB_PATH) as con:
                     cursor = con.cursor()
                     cursor.execute(f"INSERT INTO news_app_news (titulo,url_noticia,url_imagem,data_criacao,show) VALUES ('{listp[0]}','{listp[1]}','{listp[2]}','{data_hj.strftime('%Y-%m-%d %H:%M:%S')}',{t})")
                 cont+=1
             except  Exception as e:
                 print('Dados nao Inseridos',e)
+    
     oculta_urls()
     print(f'Total de {cont} novas notícas.')
 
 
-while True:
-    tempo = 600 #10 minutos 
-    inserindo_dados()
-    for t in range(tempo,0,-1):
-        print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
-        sleep(1)
-    
+# while True:
+#     tempo = 600 #10 minutos 
+#     inserindo_dados()
+#     for t in range(tempo,0,-1):
+#         print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
+#         sleep(1)
 

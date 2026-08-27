@@ -1,7 +1,6 @@
 import sqlite3
 from rich.progress import track
 from time import sleep
-
 lista_alterada = []
 lista_orignal = []
 with sqlite3.connect('../db.sqlite3',timeout=10) as con:  

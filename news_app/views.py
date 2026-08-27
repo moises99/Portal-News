@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
 from news_app.models import News
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404,JsonResponse
 from django.core.paginator import Paginator
+import sqlite3
+import subprocess # Se for rodar um arquivo .py externo
+
 
 # Create your views here.
 def index(request):
@@ -49,3 +52,10 @@ def search(request):
 
                    }
                   )
+
+
+def pop_database(request):
+    from script_news.collect_news import inserindo_dados
+    inserindo_dados()
+    return redirect('news_app:index')
+    #return JsonResponse({"status": "Sucesso", "mensagem": "Script executado!"})
