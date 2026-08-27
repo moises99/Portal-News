@@ -1,8 +1,0 @@
-{
-  "crons": [
-    {
-      "path": "pop_database/",
-      "schedule": "0 */2 * * *"
-    }
-  ]
-}
