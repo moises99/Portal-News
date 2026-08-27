@@ -1,5 +1,5 @@
-# echo "Instalando dependências..."
-# pip install -r requirements.txt
+echo "Instalando dependências..."
+pip install -r requirements.txt
 
 echo "Executando migrações do banco..."
 python manage.py migrate --noinput
