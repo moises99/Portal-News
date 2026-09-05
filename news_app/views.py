@@ -55,7 +55,7 @@ def search(request):
 
 
 def pop_database(request):
-    from script_news.collect_news import inserindo_dados
-    inserindo_dados()
+    from script_news.collect_news import cn
+    cn()
     return redirect('news_app:index')
     #return JsonResponse({"status": "Sucesso", "mensagem": "Script executado!"})

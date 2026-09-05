@@ -7,37 +7,46 @@ from rich.progress import track
 import sqlite3
 import sqlite3
 import os
+import requests
+from bs4 import BeautifulSoup
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
 
 
-def colect_news(tempo):
+def colect_news():
     listp = []
     listt = []
-    options=Options()
-    options.add_argument("--headless")
-    driver = webdriver.Edge(options=options)
-    driver.get('https://www.bing.com/news')
-    tempo = tempo
-    for c in track(range(tempo),description="Aguardando página...",total=tempo):
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);") #Rolagem automatica da Pagina
-        sleep(1)
-    qtd_elementos = len(driver.find_elements(By.XPATH,"//div[@class='news-card newsitem cardcommon nosnip']"))
-    for c in track(range(qtd_elementos),description="Coletando informações...",total=qtd_elementos):
-        meus_elementos = driver.find_elements(By.XPATH,"//div[@class='news-card newsitem cardcommon nosnip']")[c] #ELEMENTO PAI
-        meus_elementos2 = meus_elementos.find_element(By.TAG_NAME,"img")#ELEMENTO FILHO
-        titulo = meus_elementos.get_attribute('title')
-        url = meus_elementos.get_attribute('url')
-        urlimg = meus_elementos2.get_attribute('src')
-        listt.append(titulo.replace('"','').replace("'",""))
-        listt.append(url)
-        listt.append(urlimg.replace('128&h','500&h').replace('128&c','500&c').replace('qlt=90','qlt=100'))
-        listacopia = listt[:]
-        listp.append(listacopia)
-        listt.clear()
-    driver.quit()
+    for index in track(range(8,26),description=" [yellow]Realizando as requisições... ",transient=True):
+        try:
+            url = (f'https://www.bing.com/news/feed/infinitescrollajax?fcvid=11AB92FC6C326685139485E56D1D67F0&PageIndex={index}&NewsBrowseDataVersion=mkt_dataversion-4-chieeeap002edf4_v1.0&InfiniteScroll=1')
+            response = requests.get(url)
+            if response.status_code == 200:
+                pagina = BeautifulSoup(response.text, "html.parser")
+                manchetes = pagina.select("div.news-card-body")
+                for e,manchete in enumerate(manchetes):
+                    titulo_el = manchete.select_one("a.title")
+                    titulo = titulo_el.get_text(strip=True)
+                    imagem_el = manchete.select_one(".image img")
+                    imagem = imagem_el.get("src")
+                    link = titulo_el.get("href")
+                    if imagem[:20] != 'https://www.bing.com':
+                        imagem = f'https://www.bing.com{imagem}'
+                    # if len(listp) == 0 or titulo not in listp[0]:
+                    listt.append(titulo.replace('"','').replace("'",""))
+                    listt.append(link)
+                    listt.append(imagem.replace('128&h','500&h').replace('128&c','500&c').replace('qlt=90','qlt=100'))
+                    listacopia = listt[:]
+                    listp.append(listacopia)
+                    listt.clear()
+                    
+            else:
+                print('STATUS DA REQUISIÇÃO : ',response.status_code)
+        except Exception as e:
+            ...
+        sleep(2)
+
     return listp
 
 def consultssql():
@@ -57,13 +66,12 @@ def oculta_urls():
 
 def inserindo_dados():
     cont = 0
-    listp = colect_news(tempo = 60)
+    listp = colect_news()
     lista_sql = consultssql()
     for listp in track(listp,description='Inserindo dados na base'):
         data_hj = datetime.now()
         t = True
         if listp[0] not in lista_sql:
-
             try:
                 with sqlite3.connect(DB_PATH) as con:
                     cursor = con.cursor()
@@ -75,11 +83,13 @@ def inserindo_dados():
     oculta_urls()
     print(f'Total de {cont} novas notícas.')
 
+def cn():
+    while True:
+        tempo = 600 #10 minutos 
+        inserindo_dados()
+        for t in range(tempo,0,-1):
+            print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
+            sleep(1)
+    
 
-# while True:
-#     tempo = 600 #10 minutos 
-#     inserindo_dados()
-#     for t in range(tempo,0,-1):
-#         print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
-#         sleep(1)
 
