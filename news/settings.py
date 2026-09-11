@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-6)e!cotd!vlja@lacgybq_05uh!w#@-z_0s+s838yrkbb5dcb9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['portal-news-navy.vercel.app','*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -81,7 +81,6 @@ WSGI_APPLICATION = 'news.wsgi.application'
 #     }
 # }
 DATABASES = {
-
     'default': dj_database_url.parse(
         os.environ.get("DATABASE_URL")
     )
