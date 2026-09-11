@@ -81,7 +81,8 @@ WSGI_APPLICATION = 'news.wsgi.application'
 #     }
 # }
 DATABASES = {
-    "default": dj_database_url.parse(
+
+    'default': dj_database_url.parse(
         os.environ.get("DATABASE_URL")
     )
 }
