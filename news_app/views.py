@@ -35,7 +35,7 @@ def search(request):
         return redirect('news_app:index')
     noticia = News.objects.filter(show=True).filter(
         Q(titulo__icontains = texto_pesquisa)
-        )
+        ).order_by('-id')
 
     if len(noticia) == 0:
         return render(request,'global/nada_encontrado.html',)
