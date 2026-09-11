@@ -18,4 +18,4 @@ class News(models.Model):
     
     
     def __str__(self) ->str:
-        return f'{self.titulo}'
+            return f'{self.titulo}'

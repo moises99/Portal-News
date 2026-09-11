@@ -9,7 +9,7 @@ import subprocess # Se for rodar um arquivo .py externo
 
 # Create your views here.
 def index(request):
-    data_at =News.objects.filter(show=True).order_by('-id').values_list('data_criacao')
+    data_at = News.objects.filter(show=True).order_by('-id').values_list('data_criacao')
     if data_at:
         data_at = data_at.first()[0].strftime("%Hh:%Mm do dia %d/%m/%Y ")
     noticia = News.objects.filter(show=True).order_by('-id')#.order_by('?')
@@ -55,7 +55,6 @@ def search(request):
 
 
 def pop_database(request):
-    from script_news.collect_news import cn
-    cn()
+    from script_news.collect_news import rotina_coleta_de_noticias
+    rotina_coleta_de_noticias
     return redirect('news_app:index')
-    #return JsonResponse({"status": "Sucesso", "mensagem": "Script executado!"})

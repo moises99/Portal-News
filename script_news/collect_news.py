@@ -5,16 +5,27 @@ from time import sleep
 from datetime import datetime
 from rich.progress import track
 import sqlite3
-import sqlite3
 import os
 import requests
 from bs4 import BeautifulSoup
+import django
+import sys
 
-
+#Configura o caminho reconhecer os imports
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
+if BASE_DIR not in sys.path:
+    sys.path.append(BASE_DIR)
+
+# Define o módulo de configurações do projeto
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news.settings')
+django.setup()
+
+# Agora você pode importar os models normalmente
+from news_app.models import News
+data_hj = datetime.now()
 
 
+#[OK]
 def colect_news():
     listp = []
     listt = []
@@ -33,7 +44,6 @@ def colect_news():
                     link = titulo_el.get("href")
                     if imagem[:20] != 'https://www.bing.com':
                         imagem = f'https://www.bing.com{imagem}'
-                    # if len(listp) == 0 or titulo not in listp[0]:
                     listt.append(titulo.replace('"','').replace("'",""))
                     listt.append(link)
                     listt.append(imagem.replace('128&h','500&h').replace('128&c','500&c').replace('qlt=90','qlt=100'))
@@ -42,54 +52,46 @@ def colect_news():
                     listt.clear()
                     
             else:
-                print('STATUS DA REQUISIÇÃO : ',response.status_code)
+                ...
+                #print('STATUS DA REQUISIÇÃO : ',response.status_code)
         except Exception as e:
             ...
         sleep(2)
-
-    return listp
-
-def consultssql():
-    with sqlite3.connect(DB_PATH) as con:
-        cursor = con.cursor()
-        lista_sql = []
-        cursor.execute('SELECT * FROM news_app_news')
-        for row in cursor.fetchall():
-            ts = row[1]
-            lista_sql.append(ts)
-    return lista_sql
-
-def oculta_urls():
-    with sqlite3.connect(DB_PATH) as con:
-        cursor = con.cursor()
-        cursor.execute("UPDATE news_app_news SET show = False WHERE url_imagem LIKE '%16%'")
+    return [{'titulo':noticias[0],'url_noticia':noticias[1], 'url_imagem':noticias[2]} for noticias in listp]
 
 def inserindo_dados():
     cont = 0
+    cont2 = 0
     listp = colect_news()
-    lista_sql = consultssql()
     for listp in track(listp,description='Inserindo dados na base'):
+        noticia_exite = News.objects.filter(titulo = listp["titulo"])
         data_hj = datetime.now()
-        t = True
-        if listp[0] not in lista_sql:
+        if noticia_exite:
+            print(f'JÁ EXISTE: {noticia_exite}')
+            cont2 +=1
+        else:
             try:
-                with sqlite3.connect(DB_PATH) as con:
-                    cursor = con.cursor()
-                    cursor.execute(f"INSERT INTO news_app_news (titulo,url_noticia,url_imagem,data_criacao,show) VALUES ('{listp[0]}','{listp[1]}','{listp[2]}','{data_hj.strftime('%Y-%m-%d %H:%M:%S')}',{t})")
+                noticia = News.objects.create(titulo = listp["titulo"],url_noticia = listp["url_noticia"], 
+                                url_imagem = listp["url_imagem"],
+                                data_criacao = f'{data_hj.strftime('%Y-%m-%d %H:%M:%S')}',
+                                show = True )
                 cont+=1
             except  Exception as e:
                 print('Dados nao Inseridos',e)
     
-    oculta_urls()
-    print(f'Total de {cont} novas notícas.')
+    #oculta_urls()
+    print(f'Total de {cont}  notícas novas.')
+    print(f'Total de {cont2} noticías repetidas.')
 
-def cn():
+
+
+def rotina_coleta_de_noticias():
     while True:
         tempo = 600 #10 minutos 
         inserindo_dados()
         for t in range(tempo,0,-1):
             print(f'{t}s até a proxíma coleta..',end="\r",flush=False)
             sleep(1)
-    
 
 
+rotina_coleta_de_noticias()
